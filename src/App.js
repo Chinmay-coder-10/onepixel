@@ -34,6 +34,7 @@ function App() {
           </div>
         </nav>
       </div>
+      <h1>HI</h1>
           {/* <h1>Hello from App</h1>
       <img style={{ height: "137px" }} src={Icon} /> */}
         </>
