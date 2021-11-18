@@ -3,13 +3,18 @@ import "./css/Navbar.css"
 import { NavLink } from 'react-router-dom'
 
 const Navbar = () => {
+    async function searchPhotos() {
+        const url = "https://api.unsplash.com/photos/random?client_id=pvHLwntgGIrrErhByAuZLj0eZKDt7uyYDbe4Tk1ix44";
+        const res = await fetch(url);
+        const data = await res.json();
+        console.log(data);
+    }
     return (
         <div className="container">
             <nav className="navbar navbar-expand-lg navbar-light">
                 <div className="container-fluid">
                     <NavLink className="navbar-brand" to="/">
                         <i className="fas fa-image icon"></i>
-                        {/* <img style={{ height: "100px", width: "100px" }} src={Icon} /> */}
                     </NavLink>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
@@ -23,7 +28,10 @@ const Navbar = () => {
                                 <NavLink className="nav-link" to="/test">Link</NavLink>
                             </li>
                         </ul>
-                <input />
+                        <div className="inputcontainer">
+                            <button onClick={searchPhotos} className="searchbtn"><i className="fas fa-search"></i></button>
+                            <input className="search" type="text" />
+                        </div>
                     </div>
                 </div>
             </nav>
