@@ -1,13 +1,13 @@
 import React from 'react'
 import "./css/Navbar.css"
 import { NavLink } from 'react-router-dom'
+import Image from './Image';
 
 const Navbar = () => {
-    async function searchPhotos() {
-        const url = "https://api.unsplash.com/photos/random?client_id=pvHLwntgGIrrErhByAuZLj0eZKDt7uyYDbe4Tk1ix44";
-        const res = await fetch(url);
-        const data = await res.json();
-        console.log(data);
+    function searchPhotos(){
+        return(
+            <Image/>
+        )
     }
     return (
         <div className="container">
@@ -30,7 +30,7 @@ const Navbar = () => {
                         </ul>
                         <div className="inputcontainer">
                             <button onClick={searchPhotos} className="searchbtn"><i className="fas fa-search"></i></button>
-                            <input className="search" type="text" />
+                            <input spellCheck="false" className="search" type="text" />
                         </div>
                     </div>
                 </div>

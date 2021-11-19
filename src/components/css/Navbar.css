@@ -21,36 +21,3 @@
 .nav-link:hover {
   color: rgb(75 0 255) !important;
 }
-
-.inputcontainer {
-  font-size: 23px;
-  font-family: sans-serif;
-  border-radius: 24px;
-  border: 1px solid;
-  border-color: #d1d1d1;
-  outline: navajowhite;
-  padding: 2px;
-}
-
-.search {
-  border: none;
-  border-radius: 24px;
-  outline: none;
-  padding-left: 9px;
-}
-
-.searchbtn{
-  border: none;
-  outline: none;
-  background: none;
-  margin-left: 3px;
-}
-
-.searchbtn i{
-  color: #777777;
-  transition: color 0.1s ease-in-out;
-}
-
-.searchbtn i:hover{
-    color: black;
-}
