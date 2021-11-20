@@ -1,23 +1,28 @@
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import "./css/Navbar.css"
+import "./css/Home.css"
 
 const Home = () => {
     const [searchtext, setsearchtext] = useState("")
     const [isimage, setisimage] = useState(false)
     const [image, setimage] = useState("")
+    const [gotimg, setgotimag] = useState(false)
     const [results, setresults] = useState([])
     async function searchPhotos() {
         if (searchtext) {
-            const url = `https://api.unsplash.com/search/photos/?query=${searchtext}&client_id=pvHLwntgGIrrErhByAuZLj0eZKDt7uyYDbe4Tk1ix44`;
+            setgotimag(true)
+            const url = `https://api.unsplash.com/search/photos/?query=${searchtext}&client_id=pvHLwntgGIrrErhByAuZLj0eZKDt7uyYDbe4Tk1ix44&per_page=30&orientation=squarish`;
             const res = await fetch(url);
             const data = await res.json();
             const results = data.results;
             console.log(data);
-            setresults(results)
-            setisimage(true)
+            setresults(results);
+            setisimage(true);
+            setgotimag(false);
             // console.log(results);
         } else {
-            alert("Search Text cannot be blank")
+            alert("Search Text cannot be blank");
         }
     }
     return (
@@ -40,19 +45,22 @@ const Home = () => {
                                     <NavLink className="nav-link" to="/test">Link</NavLink>
                                 </li>
                             </ul>
-                            <div className="inputcontainer">
-                                <button onClick={searchPhotos} className="searchbtn"><i className="fas fa-search"></i></button>
-                                <input onChange={(e) => setsearchtext(e.target.value)} spellCheck="false" className="search" type="text" />
-                            </div>
+                        </div>
+                        <div className="inputcontainer">
+                            <button onClick={searchPhotos} className="searchbtn"><i className="fas fa-search"></i></button>
+                            <input onChange={(e) => setsearchtext(e.target.value)} spellCheck="false" className="search" type="text" />
                         </div>
                     </div>
                 </nav>
             </div>
-            {isimage ? results.map((e) => {
-                return (
-                    <img key={e.id} style={{ height: "100px", width: "100px" }} src={e.urls.raw} />
-                )
-            }) : null}
+            {gotimg ? "Loading" : ""}
+            <div className="row">
+                {isimage ? results.map((e) => {
+                    return (
+                        <img style={{ width: "250px", height: "200px" }} src={e.urls.regular} className="mx-2 my-2" alt="..." />
+                    )
+                }) : null}
+            </div>
         </>
     )
 }
