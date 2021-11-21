@@ -11,19 +11,20 @@ const Home = () => {
     const [results, setresults] = useState([])
     async function searchPhotos() {
         if (searchtext) {
+            setimage([])
             setgotimag(true)
             const url = `https://api.unsplash.com/search/photos/?query=${searchtext}&client_id=pvHLwntgGIrrErhByAuZLj0eZKDt7uyYDbe4Tk1ix44&per_page=30&orientation=squarish`;
+            const random = "https://api.unsplash.com/photos/random/?per_page=6&page=1&client_id=pvHLwntgGIrrErhByAuZLj0eZKDt7uyYDbe4Tk1ix44"
             const res = await fetch(url);
             const data = await res.json();
             const results = data.results;
             console.log(data);
             setresults(results);
-            setisimage(true);
-            setgotimag(false);
             // console.log(results);
         } else {
             alert("Search Text cannot be blank");
         }
+
     }
     return (
         <>
