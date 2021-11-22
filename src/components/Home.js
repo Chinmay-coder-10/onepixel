@@ -1,20 +1,20 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import "./css/Navbar.css"
 import "./css/Home.css"
 
 const Home = () => {
-    const [searchtext, setsearchtext] = useState("")
-    const [isimage, setisimage] = useState(false)
-    const [image, setimage] = useState("")
-    const [gotimg, setgotimag] = useState(false)
-    const [results, setresults] = useState([])
+    const [searchtext, setsearchtext] = useState("");
+    const [gotimg, setgotimag] = useState(false);
+    const [results, setresults] = useState([]);
+    const [gotrandomimg, setgotrandomimg] = useState(false);
+    const [randomimg, setrandomimg] = useState([])
+
     async function searchPhotos() {
         if (searchtext) {
-            setimage([])
+            setresults([])
             setgotimag(true)
             const url = `https://api.unsplash.com/search/photos/?query=${searchtext}&client_id=pvHLwntgGIrrErhByAuZLj0eZKDt7uyYDbe4Tk1ix44&per_page=30&orientation=squarish`;
-            const random = "https://api.unsplash.com/photos/random/?per_page=6&page=1&client_id=pvHLwntgGIrrErhByAuZLj0eZKDt7uyYDbe4Tk1ix44"
             const res = await fetch(url);
             const data = await res.json();
             const results = data.results;
@@ -26,6 +26,16 @@ const Home = () => {
         }
 
     }
+    async function getRandomImages() {
+        const url = "https://api.unsplash.com/photos/random/?client_id=pvHLwntgGIrrErhByAuZLj0eZKDt7uyYDbe4Tk1ix44&count=10";
+        const res = await fetch(url);
+        const data = await res.json();
+        setgotrandomimg(true);
+        setrandomimg(data);
+    }
+    useEffect(() => {
+        getRandomImages();
+    }, []);
     return (
         <>
             <div className="container">
@@ -54,14 +64,23 @@ const Home = () => {
                     </div>
                 </nav>
             </div>
+            {randomimg.map((e) => {
+                console.log(e.urls.regular);
+                return (
+                    <img style={{ width: "200px", height: "150px" }} src={e.urls.thumb} />
+                )
+            })}
             {gotimg ? "Loading" : ""}
             <div className="row">
-                {isimage ? results.map((e) => {
+                {gotimg ? results.map((e) => {
+
                     return (
                         <img style={{ width: "250px", height: "200px" }} src={e.urls.regular} className="mx-2 my-2" alt="..." />
                     )
                 }) : null}
             </div>
+
+
         </>
     )
 }
