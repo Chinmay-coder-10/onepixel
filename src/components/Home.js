@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import "./css/Navbar.css"
 import "./css/Home.css"
-import Loading from './Loading'
 
 const Home = () => {
     const [searchtext, setsearchtext] = useState("");
