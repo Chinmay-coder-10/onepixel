@@ -2,43 +2,49 @@ import React, { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import "./css/Navbar.css"
 import "./css/Home.css"
+import Loading from './Loading'
 
 const Home = () => {
     const [searchtext, setsearchtext] = useState("");
-    const [gotimg, setgotimag] = useState(false);
+    const [gotimg, setgotimg] = useState(false);
     const [results, setresults] = useState([]);
     const [gotrandomimg, setgotrandomimg] = useState(false);
     const [randomimg, setrandomimg] = useState([])
 
     async function searchPhotos() {
         if (searchtext) {
+            setgotimg(true)
             setresults([])
-            setgotimag(true)
             const url = `https://api.unsplash.com/search/photos/?query=${searchtext}&client_id=pvHLwntgGIrrErhByAuZLj0eZKDt7uyYDbe4Tk1ix44&per_page=30&orientation=squarish`;
             const res = await fetch(url);
             const data = await res.json();
-            const results = data.results;
-            console.log(data);
-            setresults(results);
-            // console.log(results);
+            console.log(data.total);
+            if (data.total === 0) {
+                setgotimg(false)
+                // alert("No results found")
+            } else {
+                const results = data.results;
+                console.log(data);
+                setresults(results);
+            }
         } else {
             alert("Search Text cannot be blank");
         }
 
     }
-    async function getRandomImages() {
-        const url = "https://api.unsplash.com/photos/random/?client_id=pvHLwntgGIrrErhByAuZLj0eZKDt7uyYDbe4Tk1ix44&count=10";
-        const res = await fetch(url);
-        const data = await res.json();
-        setgotrandomimg(true);
-        setrandomimg(data);
-    }
-    useEffect(() => {
-        getRandomImages();
-    }, []);
+    // async function getRandomImages() {
+    //     const url = "https://api.unsplash.com/photos/random/?client_id=pvHLwntgGIrrErhByAuZLj0eZKDt7uyYDbe4Tk1ix44&count=10";
+    //     const res = await fetch(url);
+    //     const data = await res.json();
+    //     setgotrandomimg(true);
+    //     setrandomimg(data);
+    // }
+    // useEffect(() => {
+    //     getRandomImages();
+    // }, []);
     return (
         <>
-            <div className="container">
+            <div className="container navigation">
                 <nav className="navbar navbar-expand-lg navbar-light">
                     <div className="container-fluid">
                         <NavLink className="navbar-brand" to="/">
@@ -59,28 +65,36 @@ const Home = () => {
                         </div>
                         <div className="inputcontainer">
                             <button onClick={searchPhotos} className="searchbtn"><i className="fas fa-search"></i></button>
-                            <input onChange={(e) => setsearchtext(e.target.value)} spellCheck="false" className="search" type="text" />
+                            <input onKeyDown={(e) => { if (e.keyCode === 13) { searchPhotos() } }} onChange={(e) => setsearchtext(e.target.value)} spellCheck="false" className="search" type="text" />
                         </div>
                     </div>
                 </nav>
             </div>
-            {randomimg.map((e) => {
-                console.log(e.urls.regular);
-                return (
-                    <img style={{ width: "200px", height: "150px" }} src={e.urls.thumb} />
-                )
-            })}
-            {gotimg ? "Loading" : ""}
+
+            <div className="row">
+                {randomimg.map((e) => {
+                    console.log(e.urls.regular);
+                    return (
+                        <>
+                            <img className="mx-2 my-2" style={{ width: "250px", height: "200px" }} src={e.urls.thumb} />
+                        </>
+                    )
+                })}
+            </div>
+
             <div className="row">
                 {gotimg ? results.map((e) => {
 
                     return (
-                        <img style={{ width: "250px", height: "200px" }} src={e.urls.regular} className="mx-2 my-2" alt="..." />
+                        <img style={{ width: "330px", height: "260px", marginTop: "10px", marginLeft: "5px" }} src={e.urls.regular} alt="..." />
                     )
                 }) : null}
             </div>
-
-
+            <div className="container">
+                {gotimg ? <div class="spinner-border text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div> : null}
+            </div>
         </>
     )
 }

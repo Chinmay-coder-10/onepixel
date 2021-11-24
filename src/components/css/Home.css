@@ -1,3 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Shippori+Antique+B1&display=swap");
+
+.navigation{
+  border-bottom: 2px solid #0065e4;
+}
+
+
+.icon {
+  font-size: 55px;
+  transition: color 0.2s ease-in-out;
+}
+
+.icon:hover {
+  color: #0065e4!important;
+}
+
+.nav-item {
+  font-family: "Open Sans", sans-serif;
+  font-size: 25px;
+}
+
+.nav-link:hover {
+  color: #0065e4!important;
+}
+
+
 .inputcontainer {
   font-size: 23px;
   font-family: sans-serif;
@@ -28,5 +54,11 @@
 }
 
 .searchbtn i:hover {
-  color: black;
+  color: #0065e4;
+}
+
+
+.searchimg{
+  width: 330px;
+  height: 260px;
 }
