@@ -13,14 +13,16 @@ const Home = () => {
     async function searchPhotos() {
         if (searchtext) {
             setgotimg(true)
+            setrandomimg([])
             setresults([])
             const url = `https://api.unsplash.com/search/photos/?query=${searchtext}&client_id=pvHLwntgGIrrErhByAuZLj0eZKDt7uyYDbe4Tk1ix44&per_page=30&orientation=squarish`;
             const res = await fetch(url);
             const data = await res.json();
+            
             console.log(data.total);
             if (data.total === 0) {
-                setgotimg(false)
-                // alert("No results found")
+                // setgotimg(false)
+                alert("No results found")
             } else {
                 const results = data.results;
                 console.log(data);
@@ -31,16 +33,16 @@ const Home = () => {
         }
 
     }
-    // async function getRandomImages() {
-    //     const url = "https://api.unsplash.com/photos/random/?client_id=pvHLwntgGIrrErhByAuZLj0eZKDt7uyYDbe4Tk1ix44&count=10";
-    //     const res = await fetch(url);
-    //     const data = await res.json();
-    //     setgotrandomimg(true);
-    //     setrandomimg(data);
-    // }
-    // useEffect(() => {
-    //     getRandomImages();
-    // }, []);
+    async function getRandomImages() {
+        const url = "https://api.unsplash.com/photos/random/?client_id=pvHLwntgGIrrErhByAuZLj0eZKDt7uyYDbe4Tk1ix44&count=30";
+        const res = await fetch(url);
+        const data = await res.json();
+        setgotrandomimg(true);
+        setrandomimg(data);
+    }
+    useEffect(() => {
+        getRandomImages();
+    }, []);
     return (
         <>
             <div className="container navigation">
@@ -75,7 +77,7 @@ const Home = () => {
                     console.log(e.urls.regular);
                     return (
                         <>
-                            <img className="mx-2 my-2" style={{ width: "250px", height: "200px" }} src={e.urls.thumb} />
+                            <img style={{ width: "330px", height: "260px", marginTop: "10px", marginLeft: "5px" }} src={e.urls.regular} />
                         </>
                     )
                 })}
@@ -83,16 +85,10 @@ const Home = () => {
 
             <div className="row">
                 {gotimg ? results.map((e) => {
-
                     return (
                         <img style={{ width: "330px", height: "260px", marginTop: "10px", marginLeft: "5px" }} src={e.urls.regular} alt="..." />
                     )
                 }) : null}
-            </div>
-            <div className="container">
-                {gotimg ? <div class="spinner-border text-primary" role="status">
-                    <span class="sr-only">Loading...</span>
-                </div> : null}
             </div>
         </>
     )
