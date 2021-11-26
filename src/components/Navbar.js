@@ -1,16 +1,12 @@
 import React from 'react'
 import "./css/Navbar.css"
 import { NavLink } from 'react-router-dom'
-import Image from './Image';
+import { useState } from 'react'
 
-const Navbar = () => {
-    function searchPhotos(){
-        return(
-            <Image/>
-        )
-    }
+const Navbar = ({ searchPhotos, setsearchtext }) => {
+    const [crossbtn, setcrossbtn] = useState(false)
     return (
-        <div className="container">
+        <div className="container navigation">
             <nav className="navbar navbar-expand-lg navbar-light">
                 <div className="container-fluid">
                     <NavLink className="navbar-brand" to="/">
@@ -28,10 +24,16 @@ const Navbar = () => {
                                 <NavLink className="nav-link" to="/test">Link</NavLink>
                             </li>
                         </ul>
-                        <div className="inputcontainer">
-                            <button onClick={searchPhotos} className="searchbtn"><i className="fas fa-search"></i></button>
-                            <input spellCheck="false" className="search" type="text" />
-                        </div>
+                    </div>
+                    <div className="inputcontainer">
+                        <button onClick={searchPhotos} className="searchbtn"><i className="fas fa-search"></i></button>
+                        <input onKeyDown={(e) => {
+                            if (e.keyCode === 13) { searchPhotos() };
+                            setcrossbtn(true)
+                        }} onChange={(e) => setsearchtext(e.target.value)} spellCheck="false" className="search" type="text" />
+                        <button style={{ display: "none" }} className="cross">
+                            {crossbtn ? "&#10006" : null}
+                        </button>
                     </div>
                 </div>
             </nav>
