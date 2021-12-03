@@ -4,10 +4,11 @@ import "./css/Navbar.css"
 import "./css/Home.css"
 import Navbar from './Navbar'
 import Loading from './Loading'
+import SkeletonComp from './SkeletonComp'
 
 const Home = () => {
+    const [loader, setloader] = useState(false)
     const [searchtext, setsearchtext] = useState("");
-    const [gotsearchimg, setgotsearchimg] = useState(false);
     const [gotimg, setgotimg] = useState(false);
     const [results, setresults] = useState([]);
     const [gotrandomimg, setgotrandomimg] = useState(false);
@@ -20,7 +21,7 @@ const Home = () => {
 
     async function searchPhotos() {
         if (searchtext) {
-            setgotsearchimg(true)
+            setloader(true)
             setrandomimg([])
             document.title = `${capitalize(`${searchtext}`)} - OnePixel`
             setresults([])
@@ -31,12 +32,11 @@ const Home = () => {
             if (data.total === 0) {
                 document.title = "OnePixel-Get free photos"
                 alert("No results found...Try another word");
-                setgotsearchimg(false);
             } else {
                 const results = data.results;
                 setresults(results);
-                // setgotimg(true)
-                setgotsearchimg(false)
+                setgotimg(true)
+                setloader(false)
             }
         } else {
             alert("Search Text cannot be blank");
@@ -77,8 +77,9 @@ const Home = () => {
                     )
                 }) : null}
             </div>
+            {/* <Skeleton /> */}
+            {loader ? <Loading /> : ""}
             {gotrandomimg ? <Loading /> : ""}
-            {gotsearchimg ? <Loading /> : null}
         </>
     )
 }
