@@ -28,10 +28,11 @@ const Home = () => {
             const url = `https://api.unsplash.com/search/photos/?query=${searchtext}&client_id=pvHLwntgGIrrErhByAuZLj0eZKDt7uyYDbe4Tk1ix44&per_page=30&orientation=squarish`;
             const res = await fetch(url);
             const data = await res.json()
-
+            isFinite(2)
             if (data.total === 0) {
-                document.title = "OnePixel-Get free photos"
+                document.title = "OnePixel - Get free photos"
                 alert("No results found...Try another word");
+                setloader(false)
             } else {
                 const results = data.results;
                 setresults(results);
@@ -61,10 +62,9 @@ const Home = () => {
             <Navbar searchPhotos={searchPhotos} setsearchtext={setsearchtext} />
             <div className="row">
                 {randomimg.map((e) => {
-                    console.log(e.urls.regular);
                     return (
                         <>
-                            <img style={{ width: "330px", height: "260px", marginTop: "10px", marginLeft: "5px" }} src={e.urls.regular} />
+                            <img key={e.id} style={{ width: "330px", height: "260px", marginTop: "10px", marginLeft: "5px" }} src={e.urls.regular} />
                         </>
                     )
                 })}
@@ -73,13 +73,12 @@ const Home = () => {
             <div className="row">
                 {gotimg ? results.map((e) => {
                     return (
-                        <img style={{ width: "330px", height: "260px", marginTop: "10px", marginLeft: "5px" }} src={e.urls.regular} alt="..." />
+                        <img style={{ width: "330px", height: "260px", marginTop: "10px", marginLeft: "5px" }} src={e.urls.regular} alt={e.alt_descriptiond} key={e.id} />
                     )
                 }) : null}
             </div>
-            {/* <Skeleton /> */}
-            {loader ? <Loading /> : ""}
-            {gotrandomimg ? <Loading /> : ""}
+            {loader ? <SkeletonComp /> : ""}
+            {gotrandomimg ? <SkeletonComp /> : ""}
         </>
     )
 }

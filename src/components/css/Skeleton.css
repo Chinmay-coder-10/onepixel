@@ -1,0 +1,31 @@
+/* .skeletonC {
+  flex-wrap: wrap;
+} */
+
+.skeleton-loader {
+  width: 330px;
+  height: 260px;
+  display: block;
+  background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0.5) 50%,
+      rgba(255, 255, 255, 0) 80%
+    ),
+    lightgray;
+  background-repeat: repeat-y;
+  background-size: 50px 500px;
+  background-position: 0 0;
+  animation: shine 1s infinite;
+}
+@keyframes shine {
+  to {
+    background-position: 100% 0, 0 0;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .skeletonC {
+    flex-wrap: wrap;
+  }
+}
