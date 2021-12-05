@@ -37,6 +37,7 @@ const Home = () => {
                 const results = data.results;
                 setresults(results);
                 setgotimg(true)
+                console.log(results)
                 setloader(false)
             }
         } else {
@@ -73,7 +74,9 @@ const Home = () => {
             <div className="row">
                 {gotimg ? results.map((e) => {
                     return (
-                        <img style={{ width: "330px", height: "260px", marginTop: "10px", marginLeft: "5px" }} src={e.urls.regular} alt={e.alt_descriptiond} key={e.id} />
+                        <>
+                            <img style={{ width: "330px", height: "260px", marginTop: "10px", marginLeft: "5px" }} src={e.urls.regular} alt={e.alt_descriptiond} key={e.id} />
+                        </>
                     )
                 }) : null}
             </div>
