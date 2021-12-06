@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { NavLink } from 'react-router-dom'
 import "./css/Navbar.css"
 import "./css/Home.css"
 import Navbar from './Navbar'
-import Loading from './Loading'
 import SkeletonComp from './SkeletonComp'
 
 const Home = () => {
@@ -36,9 +34,8 @@ const Home = () => {
             } else {
                 const results = data.results;
                 setresults(results);
-                setgotimg(true)
-                console.log(results)
-                setloader(false)
+                setgotimg(true);
+                setloader(false);
             }
         } else {
             alert("Search Text cannot be blank");
@@ -65,7 +62,7 @@ const Home = () => {
                 {randomimg.map((e) => {
                     return (
                         <>
-                            <img key={e.id} style={{ width: "330px", height: "260px", marginTop: "10px", marginLeft: "5px" }} src={e.urls.regular} />
+                            <img key={e.id} style={{ width: "330px", height: "260px", marginTop: "10px", marginLeft: "5px" }} src={e.urls.regular}  alt="randomimage"/>
                         </>
                     )
                 })}
@@ -73,9 +70,11 @@ const Home = () => {
 
             <div className="row">
                 {gotimg ? results.map((e) => {
+                    console.log(e);
                     return (
                         <>
-                            <img style={{ width: "330px", height: "260px", marginTop: "10px", marginLeft: "5px" }} src={e.urls.regular} alt={e.alt_descriptiond} key={e.id} />
+                            <img style={{ width: "330px", height: "260px", marginTop: "10px", marginLeft: "5px" }} src={e.urls.regular} alt="searchimage" key={e.id} />
+                            <a href={e.links.download}   download>Download  Img</a>
                         </>
                     )
                 }) : null}
