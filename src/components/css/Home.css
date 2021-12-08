@@ -1,0 +1,22 @@
+.heading {
+  margin: 3px 10px;
+  font-family: sans-serif;
+}
+
+.randomimgrow {
+  --bs-gutter-x: 3px !important;
+}
+.searchimgrow {
+  margin-left: 9px;
+  --bs-gutter-x: 3px !important;
+}
+
+.mainimgcontainer {
+  width: auto !important;
+}
+
+.downloadlink {
+  display: flex;
+  justify-content: center;
+  margin: 7.3px;
+}

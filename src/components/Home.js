@@ -55,26 +55,34 @@ const Home = () => {
     useEffect(() => {
         getRandomImages();
     }, []);
+
     return (
         <>
             <Navbar searchPhotos={searchPhotos} setsearchtext={setsearchtext} />
             <div className="row">
                 {randomimg.map((e) => {
+                    let downloadurl = e.links.download + "&force=true"
                     return (
                         <>
-                            <img key={e.id} style={{ width: "330px", height: "260px", marginTop: "10px", marginLeft: "5px" }} src={e.urls.regular}  alt="randomimage"/>
+                            <div className="mainimgcontainer randomimgrow">
+                                <img key={e.id} style={{ width: "330px", height: "260px", marginTop: "10px", marginLeft: "5px" }} src={e.urls.regular} alt="randomimage" />
+                                <a className="downloadlink" href={downloadurl}><i className="fas fa-download"></i></a>
+                            </div>
                         </>
                     )
                 })}
             </div>
 
-            <div className="row">
+            <div className="row searchimgrow">
+                {gotimg ? <h1 className="heading">Photos of {searchtext}</h1> : ""}
                 {gotimg ? results.map((e) => {
-                    console.log(e);
+                    let downloadurl = e.links.download + "&force=true"
                     return (
                         <>
-                            <img style={{ width: "330px", height: "260px", marginTop: "10px", marginLeft: "5px" }} src={e.urls.regular} alt="searchimage" key={e.id} />
-                            <a href={e.links.download}   download>Download  Img</a>
+                            <div className="mainimgcontainer">
+                                <img style={{ width: "330px", height: "260px", marginTop: "10px", marginLeft: "5px" }} src={e.urls.regular} alt="searchimage" key={e.id} />
+                                <a className="downloadlink" href={downloadurl}><i className="fas fa-download"></i></a>
+                            </div>
                         </>
                     )
                 }) : null}
