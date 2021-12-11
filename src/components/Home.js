@@ -26,7 +26,6 @@ const Home = () => {
             const url = `https://api.unsplash.com/search/photos/?query=${searchtext}&client_id=pvHLwntgGIrrErhByAuZLj0eZKDt7uyYDbe4Tk1ix44&per_page=30&orientation=squarish`;
             const res = await fetch(url);
             const data = await res.json()
-            isFinite(2)
             if (data.total === 0) {
                 document.title = "OnePixel - Get free photos"
                 alert("No results found...Try another word");
