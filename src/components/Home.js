@@ -63,7 +63,7 @@ const Home = () => {
                     let downloadurl = e.links.download + "&force=true"
                     return (
                         <>
-                            <div className="mainimgcontainer randomimgrow">
+                            <div style={{margin:"0px 160px"}} className="mainimgcontainer randomimgrow">
                                 <img key={e.id} style={{ width: "330px", height: "260px", marginTop: "10px", marginLeft: "5px" }} src={e.urls.regular} alt="randomimage" />
                                 <a className="downloadlink" href={downloadurl}><i className="fas fa-download"></i></a>
                             </div>
@@ -72,7 +72,7 @@ const Home = () => {
                 })}
             </div>
 
-            <div className="row searchimgrow">
+            <div style={{margin:"0px 160px"}} className="row searchimgrow">
                 {gotimg ? <h1 className="heading">Photos of {searchtext}</h1> : ""}
                 {gotimg ? results.map((e) => {
                     let downloadurl = e.links.download + "&force=true"
